@@ -16,16 +16,16 @@ Super Mario 64 ROM hack for speedrunners
 - Level Reset
 - Level Reset Camera Fix
 - Level Select
-- Manual Timer
+- Make Timer Display Centiseconds
 - Never Spawn Fat Race Penguin in CCM
 - No Music
 - Remove Time Text
 - Savestates 3.0
-- Show Timer in Castle
 - Soft Reset
 - Star Select
 - TTC Clock Speed
 - Upstairs RTA (74-Star) Practice File (Slot 4)
 - WDW Water Level
+- X-Cam Timer
 
 Check the [Google site](https://sites.google.com/site/sm64gameshark) for more info on a particular code

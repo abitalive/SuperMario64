@@ -14,7 +14,7 @@ insert "..\LIB\Super Mario 64 (J) [!].z64"
 origin 0xF0DE0
 Asciiz("PRACROM")
 origin 0xF0DE8
-Asciiz("BETA 8")
+Asciiz("BETA 9")
 
 // All Stars Yellow
 origin 0xAC4F8
@@ -59,20 +59,46 @@ origin 0x4658
 sb k1, 0x9EEE (at) // 81249658 A03B
 origin 0x4660
 nop // 81249660 2400
-origin 0x8ADC
-sb r0, 0x00EE (t5) // 8124DADC A1A0 & 8124DADE 00EE
+//origin 0x8ADC
+//sb r0, 0x00EE (t5) // 8124DADC A1A0 & 8124DADE 00EE
+
+// Centisecond
+origin 0x9DAB8
+addiu at, r0, 0x0A
+origin 0x9DAF0
+mult t9, at
+mflo t1
+addiu at, r0, 0x03
+div t1, at
+mflo t2
+sh t2, 0x24 (sp)
+origin 0x9DB50
+addiu a2, a2, 0x71D4
+
+// X-Cam Timer
+origin 0x0185E0
+base 0x8025D5E0
+j Xcam // 1302
+
+origin 0x0185F4
+base 0x8025D5F4
+j Xcam // 1307
+
+origin 0x018608
+base 0x8025D608
+j Xcam // 1303
 
 // Never Spawn Fat Race Penguin in CCM
 origin 0xCB7FC
-beq r0, r0, 0xCB83C // 813107FC 1000
+b 0x8031083C // 813107FC 1000
 
 // No Music
 origin 0xD747C
 addiu a1, r0, 0x0000 // 8131C47C 2405 & 8131C47E 0000
 
 // Show Timer in Castle
-origin 0x9DF18
-nop // 812E2F18 2400
+//origin 0x9DF18
+//nop // 812E2F18 2400
 
 // Savestates 3.0
 origin 0x856E0
@@ -371,6 +397,20 @@ Skip15:
 // Return
 jr ra
 nop
+
+// X-Cam Timer
+scope Xcam: {
+  lui t1, 0x8034
+  lhu t2, 0x9E1A (t1) // animation cycle counter
+  ori t3, r0, 0x01
+  bne t2, t3, skip
+  sb r0, 0x9EEE (t1) // ticking
+  ori t2, r0, 0x7F
+  sh t2, 0x9EFA (t1) // hud
+  skip:
+    j 0x8025D994
+    nop
+}
 
 // Level Select Array
 origin 0x39ECC // RAM 0x8027EECC
